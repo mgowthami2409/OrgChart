@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Suprajith Engineering Private Limited - Organization Chart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <!-- Logo + Title -->
+  <div class="header-container">
+    <img src="logo-removebg-preview.png" alt="Company Logo" class="logo-img" id="logo-image"/>
+    <h2 id="page-title">Suprajit Engineering Limited</h2>
+  </div>
+  <h2 id="page-title1">Organization Chart</h2>
+
+  <!-- Upload Section -->
+  <div class="upload-container">
+    <p id="instructions">
+      Upload an <b>.xlsx</b> file with columns: 
+      <code>ID</code>, <code>First_Name</code>, <code>Parent ID</code>, <code>Designation</code>
+    </p>
+    <div class="controls" id="file-controls">
+      <label for="upload" class="custom-file-upload">Choose File</label>
+      <input type="file" id="upload" accept=".xlsx" />
+      <button id="submitBtn" class="styled-button submit-btn">Submit</button>
+      <button id="clearBtn" class="styled-button clear-btn">Clear</button>
+    </div>
+  </div>
+
+  <!-- Chart and Search -->
+  <div id="chart_div">
+    <h2 id="page-title">Suprajit Engineering LIMITED</h2>
+    <div class="search-controls">
+      <input type="text" id="search" placeholder="Search employee name..." />
+      <button id="refreshBtn" class="styled-button refresh-btn">Refresh</button>
+      <button id="backBtn" class="styled-button back-btn">Back</button>
+      <button id="printBtn" class="styled-button print-btn">Print</button>
+    </div>
+    <div id="chart-container"></div>
+  </div>
+
+  <!-- Employee Info Popup  -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <span id="close-popup" class="close">&times;</span>
+      <h3>Employee Details</h3>
+      <div class="popup-field"><strong>ID:</strong> <span id="emp-id"></span></div>
+      <div class="popup-field"><strong>NAME:</strong> <span id="emp-name"></span></div>
+      <div class="popup-field"><strong>DESIGNATION:</strong> <span id="emp-designation"></span></div>
+      <div class="popup-field"><strong>UNDER:</strong> <span id="emp-under"></span></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
