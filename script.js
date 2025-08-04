@@ -1,5 +1,3 @@
-google.charts.load('current', { packages: ["orgchart"] });
-
 let originalData = [];
 let lastData = [];
 
@@ -19,9 +17,11 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     const sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
     originalData = sheet;
 
-    drawChart(originalData);
+    drawChart(originalData); // This calls your Balkan chart logic
+
     lastData = originalData;
 
+    // Show chart UI and hide upload UI
     document.getElementById('chart_div').style.display = 'block';
     document.getElementById('search').style.display = 'inline-block';
     document.getElementById('refreshBtn').style.display = 'inline-block';
@@ -35,6 +35,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
   };
   reader.readAsArrayBuffer(fileInput.files[0]);
 });
+
 
 document.getElementById('clearBtn').addEventListener('click', () => {
   location.reload();
@@ -97,78 +98,41 @@ document.getElementById('search').addEventListener('input', function () {
 
 // === Draw Org Chart ===
 function drawChart(data) {
-  google.charts.setOnLoadCallback(() => {
-    const chartData = new google.visualization.DataTable();
-    chartData.addColumn('string', 'Name');
-    chartData.addColumn('string', 'Manager');
-    chartData.addColumn('string', 'ToolTip');
+  const nodes = data.map(row => ({
+    id: row.ID,
+    pid: row["Parent ID"] || null,
+    name: row.First_Name,
+    title: row.Designation
+  }));
 
-    data.forEach(row => {
-      const nodeId = row.ID.toString();
-      const managerId = row["Parent ID"] ? row["Parent ID"].toString() : '';
-      const displayName = `${row.First_Name} (${row.Designation})`;
+  const chart = new OrgChart(document.getElementById("orgChart"), {
+    nodes: nodes,
+    nodeBinding: {
+      field_0: "name",
+      field_1: "title"
+    },
+    scaleInitial: OrgChart.match.boundary,
+    layout: OrgChart.mixed,
+    enableSearch: false,
+    template: "isla", // or 'ana', 'isla', etc.
+    nodeMouseClick: OrgChart.action.none
+  });
 
-      chartData.addRow([
-        { v: nodeId, f: `<div class='node-box' data-id='${row.ID}'>${displayName}</div>` },
-        managerId,
-        row.Designation
-      ]);
-    });
+  // Popup binding
+  chart.on("click", function(sender, args){
+    const empId = args.node.id;
+    const emp = data.find(r => r.ID.toString() === empId.toString());
+    const manager = data.find(r => r.ID === emp["Parent ID"]);
 
-    const chart = new google.visualization.OrgChart(document.getElementById('chart-container'));
-    chart.draw(chartData, { allowHtml: true });
+    document.getElementById('emp-id').textContent = emp.ID;
+    document.getElementById('emp-name').textContent = emp.First_Name;
+    document.getElementById('emp-designation').textContent = emp.Designation;
+    document.getElementById('emp-under').textContent = manager ? manager.First_Name : 'None';
 
-    // ✅ Auto-scale chart
-    // ✅ Auto-scale chart (device-independent)
-    // ✅ Auto-scale chart (works across all laptops/screens)
-    // ✅ Auto-scale chart with fallback scroll (cross-device safe)
-    setTimeout(() => {
-      const container = document.getElementById('chart-container');
-      const chartDiv = document.getElementById('chart_div');
-
-      const chartWidth = container.scrollWidth;
-      const chartHeight = container.scrollHeight;
-
-      const availableWidth = chartDiv.clientWidth - 80;   // safe margins
-      const availableHeight = chartDiv.clientHeight - 160;
-
-      let scale = Math.min(availableWidth / chartWidth, availableHeight / chartHeight);
-
-      if (scale > 1) scale = 1; // never upscale
-
-      container.style.transform = `scale(${scale})`;
-      container.style.transformOrigin = "top center";
-
-      // ✅ allow scroll if chart is still larger
-      chartDiv.style.overflow = (scale < 1) ? "hidden" : "auto";
-    }, 500);
-
-
-    // Keep connection line styling
-    setTimeout(() => {
-      document.querySelectorAll('path').forEach(path => {
-        path.setAttribute('stroke', '#0044cc');
-        path.setAttribute('stroke-width', '3');
-      });
-    }, 100);
-
-    // Popup binding
-    document.querySelectorAll('.node-box').forEach(box => {
-      box.addEventListener('click', () => {
-        const empId = box.dataset.id;
-        const emp = originalData.find(r => r.ID.toString() === empId);
-        const manager = originalData.find(r => r.ID === emp["Parent ID"]);
-
-        document.getElementById('emp-id').textContent = emp.ID;
-        document.getElementById('emp-name').textContent = emp.First_Name;
-        document.getElementById('emp-designation').textContent = emp.Designation;
-        document.getElementById('emp-under').textContent = manager ? manager.First_Name : 'None';
-
-        document.getElementById('popup').classList.remove('hidden');
-      });
-    });
+    document.getElementById('popup').classList.remove('hidden');
   });
 }
+
 
 document.getElementById('close-popup').addEventListener('click', () => {
   document.getElementById('popup').classList.add('hidden');
@@ -189,7 +153,7 @@ document.getElementById('printBtn').addEventListener('click', () => {
         .header {
           display:flex;
           align-items:center;
-          gap:20px;
+        //   gap:20px;
           margin: 10px 0 20px 20px;
         }
         .header img { height:80px; }
@@ -221,7 +185,7 @@ document.getElementById('printBtn').addEventListener('click', () => {
       </style>
     </head>
     <body>
-      <div class="header"
+      <div class="header">
         <img src="logo-removebg-preview.png" alt="Logo"/>
         <h2>Suprajit</h2>
       </div>

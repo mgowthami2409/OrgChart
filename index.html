@@ -5,7 +5,7 @@
   <title>Suprajith Engineering Private Limited - Organization Chart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://balkangraph.com/js/OrgChart.js"></script>
   <link rel="stylesheet" href="index.css" />
 </head>
 <body>
@@ -15,6 +15,8 @@
     <img src="logo-removebg-preview.png" alt="Company Logo" class="logo-img" id="logo-image"/>
     <h2 id="page-title">Suprajit Engineering Limited</h2>
   </div>
+
+
   <h2 id="page-title1">Organization Chart</h2>
 
   <!-- Upload Section -->
@@ -33,14 +35,14 @@
 
   <!-- Chart and Search -->
   <div id="chart_div">
-    <h2 id="page-title">Suprajit Engineering LIMITED</h2>
+    <h4 id="page-title">Suprajit Engineering LIMITED</h4>
     <div class="search-controls">
       <input type="text" id="search" placeholder="Search employee name..." />
       <button id="refreshBtn" class="styled-button refresh-btn">Refresh</button>
       <button id="backBtn" class="styled-button back-btn">Back</button>
       <button id="printBtn" class="styled-button print-btn">Print</button>
     </div>
-    <div id="chart-container"></div>
+    <div id="orgChart" style="width:100%; height:100%;"></div>
   </div>
 
   <!-- Employee Info Popup  -->
