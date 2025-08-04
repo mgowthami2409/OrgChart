@@ -22,7 +22,7 @@ body {
 .header-container #page-title { margin: 0; }
 
 /* Titles */
-#page-title,
+#chart-title,
 .header h4 {
   /* font-size: 3em; */
   font-weight: 1000;
@@ -151,17 +151,53 @@ body::before {
 
 /* ✅ Print Styling */
 @media print {
-  #page-title, #page-title1, #logo-image, #instructions,
-  #file-controls, .search-controls, .styled-button, #search { display: none !important; }
-
-  #chart_div { position: relative !important; width: 100% !important; height: auto !important; background: #fff !important; }
-  #chart-container {
-    width: 90% !important;
-    height: auto !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    page-break-inside: avoid !important;
+  /* ✅ Only show logo, title, and chart */
+  body {
+    background: #fff !important;
+    color: #000;
   }
-  
-  body { background: #fff !important; }
+
+  #chart-title {
+    display: none !important;  
+  }
+
+  #page-title,
+  #logo-image {
+    display: block !important;
+  }
+
+  #page-title1,
+  #instructions,
+  #file-controls,
+  .search-controls,
+  .styled-button,
+  #search,
+  #popup,
+  body::before {
+    display: none !important;
+  }
+
+  #chart_div {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    /* background: #fff !important; */
+  }
+
+  #orgChart {
+    transform: scale(1);
+    transform-origin: top center;
+  }
+
+  .header-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin-bottom: 20px;
+  }
+
+  .logo-img {
+    height: 40px;
+  }
 }
