@@ -14,16 +14,16 @@ body {
   align-items: center;
   gap: 15px;
   padding: 20px 0;
+  
 }
 .header-container .logo-img {
-  max-height: 40px;
+  max-height: 50px;
   width: auto;
 }
-.header-container #page-title { margin: 0; }
+.header-container #page-title { margin: 0; font-size: 3em;}
 
 /* Titles */
-#chart-title, #page-title, .header h2 {
-  font-size: 20px;
+#chart-title, #page-title {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -36,14 +36,9 @@ body {
 }
 .header h4 {
   /* font-size: 3em; */
-  font-weight: 1000;
-  text-transform: uppercase;
-  letter-spacing: 3px;
   margin-top: 5px;
   margin-bottom: 10px;
-  background: linear-gradient(90deg, #0928ec, #f91b1b);
-  -webkit-background-clip: text;
-  background-clip: text;
+  font-size: 25px;
   -webkit-text-fill-color: transparent;
   text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
 }
