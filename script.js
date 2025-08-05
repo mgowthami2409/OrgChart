@@ -105,26 +105,30 @@ function drawChart(data) {
     title: row.Designation
   }));
 
-// Node style: white fill, black border
-OrgChart.templates.ana.node =
-  '<rect x="0" y="0" height="{h}" width="{w}" rx="10" ry="10" fill="#fff" stroke="#000" stroke-width="1"></rect>';
+  // Node style: white fill, black border
+  OrgChart.templates.ana.node =
+    '<rect x="0" y="0" height="{h}" width="{w}" rx="10" ry="10" fill="#fff" stroke="#000" stroke-width="1"></rect>';
 
-// Plus icon (expand)
-OrgChart.templates.ana.plus =
-  '<circle cx="15" cy="15" r="10" fill="orange" stroke="#000" stroke-width="1"></circle>' +
-  '<line x1="10" y1="15" x2="20" y2="15" stroke="#000" stroke-width="2"></line>' +
-  '<line x1="15" y1="10" x2="15" y2="20" stroke="#000" stroke-width="2"></line>';
+  // Plus icon (expand)
+  OrgChart.templates.ana.plus =
+    '<circle cx="15" cy="15" r="10" fill="orange" stroke="#000" stroke-width="1"></circle>' +
+    '<line x1="10" y1="15" x2="20" y2="15" stroke="#000" stroke-width="2"></line>' +
+    '<line x1="15" y1="10" x2="15" y2="20" stroke="#000" stroke-width="2"></line>';
 
-// Minus icon (collapse)
-OrgChart.templates.ana.minus =
-  '<circle cx="15" cy="15" r="10" fill="orange" stroke="#000" stroke-width="1"></circle>' +
-  '<line x1="10" y1="15" x2="20" y2="15" stroke="#000" stroke-width="2"></line>';
+  // Minus icon (collapse)
+  OrgChart.templates.ana.minus =
+    '<circle cx="15" cy="15" r="10" fill="orange" stroke="#000" stroke-width="1"></circle>' +
+    '<line x1="10" y1="15" x2="20" y2="15" stroke="#000" stroke-width="2"></line>';
 
-OrgChart.templates.ana.field_0 =
-  '<text style="font-size: 28px; font-weight: 600; font-family: Arial, sans-serif;" fill="#000" x="125" y="40" text-anchor="middle">{val}</text>';
+  OrgChart.templates.ana.field_0 = 
+    '<foreignObject x="5" y="10" width="240" height="50">' +
+    '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 26px; font-weight: bold; text-align:center; line-height: 1.1;">{val}</div>' +
+    '</foreignObject>';
 
-OrgChart.templates.ana.field_1 =
-  '<text style="font-size: 24px; font-family: Arial, sans-serif;" fill="#000" x="125" y="65" text-anchor="middle">{val}</text>';
+  OrgChart.templates.ana.field_1 = 
+    '<foreignObject x="5" y="65" width="240" height="45">' +
+    '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 22px; color: #444; text-align:center; line-height: 1.1;">{val}</div>' +
+    '</foreignObject>';
 
   const chart = new OrgChart(document.getElementById("orgChart"), {
     nodes: nodes,
@@ -179,4 +183,3 @@ window.onafterprint = function () {
 //     drawChart(lastData);
 //   }
 // });
-

@@ -165,66 +165,68 @@ body::before {
   stroke-width: 1px !important;
 }
 
-/* ✅ Print Styling */
+/* Hide print header by default */
+#print-header {
+  display: none;
+  z-index: 9999;
+  position: absolute;
+}
+
 @media print {
-  @page {
-    size: A4 landscape;
-    margin: 5mm;
+  body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
   }
 
   body {
-    background: #fff !important;
-    color: #000;
-    margin: 0 !important;
-    padding: 0 !important;
-    image-rendering: optimizeQuality;
+    background: white !important;
+    background-image: none !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  .header-container {
+  body::before {
+    display: none !important; /* remove watermark logo */
+  }
+
+  #print-header {
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  img.print-logo {
+    border: none !important;
+    display: block;
+  }
+
+  .print-only {
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
   }
 
-  #logo-image {
-    display: block !important;
+  .print-logo {
     height: 40px;
-    margin: 0 !important;
+    width: auto;
   }
 
-  #page-title {
-    display: block !important;
-    margin: 0 !important;
-    font-size: 22px !important;
-    color: darkblue !important;
-    background: none !important;
-    -webkit-text-fill-color: unset !important;
-    text-shadow: none !important;
-  }
-
-  #chart_div {
-    display: block !important;
-    position: relative !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    height: auto !important;
-    background: #fff !important;
-  }
-
-  #orgChart {
-    transform: scale(1);
-    transform-origin: center;
-    margin: 0 !important;
-    padding: 0 !important;
+  .print-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: black !important;
   }
 
   /* Hide everything else */
+  .header-container,
+  #page-title,
   #page-title1,
   #chart-title,
   #instructions,
@@ -237,4 +239,19 @@ body::before {
     display: none !important;
   }
 
+  #chart_div {
+    position: relative !important; /* Prevent it from covering print-header */
+    z-index: 0 !important;
+    margin-top: 70px;
+    background: #fff !important;
+    padding: 0 !important;
+    height: auto !important;
+  }
+
+  #orgChart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
 }
