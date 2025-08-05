@@ -86,7 +86,7 @@ input[type="file"] { display: none; }
   padding: 4px 8px;
 }
 #submitBtn, #clearBtn {
-  font-size: 12px;
+  font-size: 1em;
   padding: 6px 12px;
 }
 .custom-file-upload { background: linear-gradient(90deg, #ffa17f, #00223e); color: white; }
@@ -214,14 +214,14 @@ body::before {
   }
 
   .print-logo {
-    height: 40px;
+    height: 35px;
     width: auto;
   }
 
   .print-title {
     font-size: 24px;
     font-weight: bold;
-    color: black !important;
+    color: darkblue !important;
   }
 
   /* Hide everything else */
@@ -251,6 +251,7 @@ body::before {
   #orgChart {
     display: flex;
     justify-content: center;
+    text-align: center;
     align-items: center;
     margin: 0 auto;
   }

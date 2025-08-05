@@ -107,7 +107,9 @@ function drawChart(data) {
 
   // Node style: white fill, black border
   OrgChart.templates.ana.node =
-    '<rect x="0" y="0" height="{h}" width="{w}" rx="10" ry="10" fill="#fff" stroke="#000" stroke-width="1"></rect>';
+    '<rect x="0" y="0" height="{h}" width="{w}" rx="10" ry="10" fill="#fff" stroke="#000" stroke-width="1.5"></rect>';
+
+  OrgChart.templates.ana.size = [250, 140];
 
   // Plus icon (expand)
   OrgChart.templates.ana.plus =
@@ -121,13 +123,13 @@ function drawChart(data) {
     '<line x1="10" y1="15" x2="20" y2="15" stroke="#000" stroke-width="2"></line>';
 
   OrgChart.templates.ana.field_0 = 
-    '<foreignObject x="5" y="10" width="240" height="50">' +
-    '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 26px; font-weight: bold; text-align:center; line-height: 1.1;">{val}</div>' +
+    '<foreignObject x="5" y="15" width="240" height="55">' +
+    '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 28px; font-weight: bold; text-align:center; line-height: 1.1;">{val}</div>' +
     '</foreignObject>';
 
   OrgChart.templates.ana.field_1 = 
-    '<foreignObject x="5" y="65" width="240" height="45">' +
-    '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 22px; color: #444; text-align:center; line-height: 1.1;">{val}</div>' +
+    '<foreignObject x="5" y="75" width="240" height="55">' +
+    '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 24px; color: #444; text-align:center; line-height: 1.1;">{val}</div>' +
     '</foreignObject>';
 
   const chart = new OrgChart(document.getElementById("orgChart"), {
@@ -140,9 +142,9 @@ function drawChart(data) {
     layout: OrgChart.mixed,
     enableSearch: false,
     template: "ana", // or 'ana', 'isla', etc.
-    spacing: 10,            // Reduce vertical space
-    levelSeparation: 50,
-    nodeMouseClick: OrgChart.action.none
+    spacing: 20,            // Reduce vertical space
+    levelSeparation: 80,
+    nodeMouseClick: OrgChart.action.none,
   });
 
   // Popup binding
@@ -177,9 +179,3 @@ window.onafterprint = function () {
   drawChart(originalData);
   lastData = originalData;
 };
-
-// window.addEventListener('resize', () => {
-//   if (lastData.length > 0) {
-//     drawChart(lastData);
-//   }
-// });
