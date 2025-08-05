@@ -123,7 +123,7 @@ function drawChart(data) {
     '<line x1="10" y1="15" x2="20" y2="15" stroke="#000" stroke-width="2"></line>';
 
   OrgChart.templates.ana.field_0 = 
-    '<foreignObject x="5" y="15" width="240" height="55">' +
+    '<foreignObject x="5" y="15" width="240" height="80">' +
     '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 28px; font-weight: bold; text-align:center; line-height: 1.1;">{val}</div>' +
     '</foreignObject>';
 
