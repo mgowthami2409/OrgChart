@@ -107,7 +107,7 @@ function drawChart(data) {
 
   // Node style: white fill, black border
   OrgChart.templates.ana.node =
-    '<rect x="0" y="0" height="{h}" width="{w}" rx="10" ry="10" fill="#fff" stroke="#000" stroke-width="1.5"></rect>';
+    '<rect x="0" y="0" height="{h}" width="{w}" rx="10" ry="10" fill="#fff" stroke="#000" stroke-width="2px"></rect>';
 
   OrgChart.templates.ana.size = [250, 140];
 
@@ -132,6 +132,8 @@ function drawChart(data) {
     '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 24px; color: #444; text-align:center; line-height: 1.1;">{val}</div>' +
     '</foreignObject>';
 
+  OrgChart.templates.ana.link = '<path stroke-linejoin="round" stroke="#000" stroke-width="2px" fill="none" d="{rounded}" />'; 
+
   const chart = new OrgChart(document.getElementById("orgChart"), {
     nodes: nodes,
     nodeBinding: {
@@ -145,6 +147,7 @@ function drawChart(data) {
     spacing: 20,            // Reduce vertical space
     levelSeparation: 80,
     nodeMouseClick: OrgChart.action.none,
+
   });
 
   // Popup binding
