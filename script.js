@@ -144,10 +144,13 @@ function drawChart(data) {
     layout: OrgChart.mixed,
     enableSearch: false,
     template: "ana", // or 'ana', 'isla', etc.
-    spacing: 20,            // Reduce vertical space
-    levelSeparation: 80,
+    spacing: 100,            // Reduce vertical space
+    levelSeparation: 100,
     nodeMouseClick: OrgChart.action.none,
-
+    // linkStyle: {
+    //   stroke: "#000",
+    //   "stroke-width": "4px"
+    // }
   });
 
   // Popup binding

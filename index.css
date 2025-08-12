@@ -168,6 +168,11 @@ body::before {
 }
 
 @media print {
+  @page {
+    size: A4 landscape; /* Set the page size to A4 landscape */
+    margin: 5mm; /* Set margins for printing */
+    border: 21px solid #000; /* Optional: add a border */
+  }
   body, html {
     margin: 0 !important;
     padding: 0 !important;
@@ -225,6 +230,7 @@ body::before {
   #page-title1,
   #chart-title,
   #instructions,
+  #columns,
   #file-controls,
   .search-controls,
   .styled-button,
