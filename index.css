@@ -64,6 +64,15 @@ p { font-size: 1em; margin-bottom: 20px; }
 .controls { margin: 20px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
 input[type="file"] { display: none; }
 
+.highlight-col {
+  background: linear-gradient(90deg, #34987da1, #d7785682);
+  color: #000; /* black text */
+  font-weight: bold;
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid black;
+}
+
 /* Buttons */
 .custom-file-upload, .styled-button {
   padding: 6px 12px;
