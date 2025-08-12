@@ -25,21 +25,17 @@
 
   <!-- Upload Section -->
   <div class="upload-container">
-    <!-- <p id="instructions">
-      Upload an <b>.xlsx</b> file with columns: 
-      ID, First_Name, Parent ID, Designation
-    </p> -->
     <p id="instructions">
       Upload an <b>.xlsx</b> file with columns:  <br/><br/>
       <span class="highlight-col">ID, First_Name, Parent ID, Designation</span> 
     </p>
-
     <div class="controls" id="file-controls">
       <label for="upload" class="custom-file-upload">Choose File</label>
       <input type="file" id="upload" accept=".xlsx" />
       <button id="submitBtn" class="styled-button submit-btn">Submit</button>
       <button id="clearBtn" class="styled-button clear-btn">Clear</button>
     </div>
+    <p id="fileStatus">No file selected</p>
   </div>
 
   <!-- Chart and Search -->

@@ -240,6 +240,7 @@ body::before {
   #chart-title,
   #instructions,
   #columns,
+  #fileStatus,
   #file-controls,
   .search-controls,
   .styled-button,

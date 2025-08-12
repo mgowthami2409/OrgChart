@@ -1,11 +1,40 @@
 let originalData = [];
 let lastData = [];
 
+// === File upload status ===
+// ⬇️ Place this right after the variable declarations
+const fileInput = document.getElementById("upload");
+const fileStatus = document.getElementById("fileStatus");
+const clearBtn = document.getElementById("clearBtn");
+
+// Show file name when selected
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+        // fileStatus.textContent = "<strong>File uploaded:</strong>" + fileInput.files[0].name;
+        fileStatus.innerHTML = "<strong>File Uploaded:</strong> " + fileInput.files[0].name;
+    } else {
+        fileStatus.textContent = "No file selected";
+    }
+});
+
+// Clear file selection
+clearBtn.addEventListener("click", () => {
+    fileInput.value = "";
+    fileStatus.textContent = "No file selected";
+});
+
 // === File Upload ===
 document.getElementById('submitBtn').addEventListener('click', () => {
-  const fileInput = document.getElementById('upload');
-  if (!fileInput.files[0]) {
-    alert("Please choose a file first.");
+  const file = fileInput.files[0];
+  if (!file) {
+    fileStatus.innerHTML = "<span style='color:red'><strong>Error:</strong> Please choose a file first.</span>";
+    return;
+  }
+
+  // ✅ 1. Check file extension
+  if (!file.name.endsWith(".xlsx")) {
+    fileStatus.innerHTML = "<span style='color:red'><strong>Error:</strong> Please upload a valid .xlsx file.</span>";
+    fileInput.value = "";
     return;
   }
 
@@ -14,11 +43,22 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     const data = new Uint8Array(e.target.result);
     const workbook = XLSX.read(data, { type: 'array' });
     const sheetName = workbook.SheetNames[0];
-    const sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-    originalData = sheet;
+    const sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
 
-    drawChart(originalData); // This calls your Balkan chart logic
+    // ✅ 2. Check required columns
+    const requiredColumns = ["ID", "First_Name", "Parent ID", "Designation"];
+    const uploadedColumns = sheet[0] || [];
+    const missingColumns = requiredColumns.filter(col => !uploadedColumns.includes(col));
 
+    if (missingColumns.length > 0) {
+      fileStatus.innerHTML = `<span style='color:red'><strong>Error:</strong> Missing columns: ${missingColumns.join(", ")}</span>`;
+      fileInput.value = "";
+      return;
+    }
+
+    // ✅ If validation passes, convert to JSON and draw chart
+    originalData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+    drawChart(originalData);
     lastData = originalData;
 
     // Show chart UI and hide upload UI
@@ -32,13 +72,9 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     document.getElementById('page-title').style.display = 'none';
     document.getElementById('instructions').style.display = 'none';
     document.getElementById('logo-image').style.display = 'none';
+    fileStatus.innerHTML = `<strong>File Uploaded:</strong> ${file.name}`;
   };
-  reader.readAsArrayBuffer(fileInput.files[0]);
-});
-
-
-document.getElementById('clearBtn').addEventListener('click', () => {
-  location.reload();
+  reader.readAsArrayBuffer(file);
 });
 
 document.getElementById('refreshBtn').addEventListener('click', () => {
