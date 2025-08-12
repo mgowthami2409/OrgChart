@@ -10,8 +10,9 @@ const clearBtn = document.getElementById("clearBtn");
 // Show file name when selected
 fileInput.addEventListener("change", () => {
     if (fileInput.files.length > 0) {
-        // fileStatus.textContent = "<strong>File uploaded:</strong>" + fileInput.files[0].name;
-        fileStatus.innerHTML = "<strong>File Uploaded:</strong> " + fileInput.files[0].name;
+        // fileStatus.innerHTML = "<strong>File Uploaded:</strong> " + fileInput.files[0].name;
+        fileStatus.innerHTML = `<span style="color: green;"><strong>File Uploaded:</strong> ${fileInput.files[0].name}</span>`;
+
     } else {
         fileStatus.textContent = "No file selected";
     }
@@ -72,7 +73,8 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     document.getElementById('page-title').style.display = 'none';
     document.getElementById('instructions').style.display = 'none';
     document.getElementById('logo-image').style.display = 'none';
-    fileStatus.innerHTML = `<strong>File Uploaded:</strong> ${file.name}`;
+    // fileStatus.innerHTML = `<strong>File Uploaded:</strong> ${file.name}`;
+
   };
   reader.readAsArrayBuffer(file);
 });
@@ -97,6 +99,9 @@ document.getElementById('backBtn').addEventListener('click', () => {
 
   document.getElementById('upload').value = '';
   document.getElementById('search').value = '';
+
+  // Reset file status to default:
+  document.getElementById('fileStatus').textContent = "No file selected";
 });
 
 // === Search ===
@@ -140,6 +145,15 @@ function drawChart(data) {
     name: row.First_Name,
     title: row.Designation
   }));
+
+  OrgChart.templates.dynamic = Object.assign({}, OrgChart.templates.ana);
+
+    // Set node size (optional)
+    OrgChart.templates.dynamic.size = [250, 240];
+
+    // Add thick border around the whole chart canvas
+    OrgChart.templates.dynamic.background = 
+    `<rect x="0" y="0" width="{w}" height="{h}" fill="white" stroke="black" stroke-width="4"></rect>`;
 
   // Node style: white fill, black border
   OrgChart.templates.ana.node =

@@ -180,7 +180,7 @@ body::before {
   @page {
     size: A4 landscape; /* Set the page size to A4 landscape */
     margin: 5mm; /* Set margins for printing */
-    border: 1px solid #000; /* Optional: add a border */
+    border: 2px solid #000; /* Optional: add a border */
   }
   body, html {
     margin: 0 !important;
@@ -214,11 +214,11 @@ body::before {
     display: flex !important;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 10px;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 60px;
+    left: 60px;
     z-index: 9999;
   }
 
@@ -253,9 +253,10 @@ body::before {
   #chart_div {
     position: relative !important; /* Prevent it from covering print-header */
     z-index: 0 !important;
-    margin-top: 70px;
+    margin-top: 70px !important;
     background: #fff !important;
     padding: 0 !important;
+    /* margin: 0 !important; */
     height: auto !important;
   }
 
@@ -265,5 +266,10 @@ body::before {
     text-align: center;
     align-items: center;
     margin: 0 auto;
+  }
+
+  /* Make sure scaling doesn't cause fading */
+  svg {
+      shape-rendering: crispEdges; /* Prevents anti-alias blur on lines */
   }
 }
